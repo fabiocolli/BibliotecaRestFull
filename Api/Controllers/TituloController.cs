@@ -2,7 +2,9 @@ using Api.Dto.Entrada;
 using Api.Dto.Saida;
 using Aplicacao.Interfaces;
 using Dominio.Entidades;
+using InfraEstrutura.Context;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
@@ -11,10 +13,12 @@ namespace Api.Controllers
     public class TituloController : ControllerBase
     {
         private readonly IAplicacaoTitulo _servicoTitulo;
+        private readonly Contexto _contexto;
 
-        public TituloController(IAplicacaoTitulo servicoTitulo)
+        public TituloController(IAplicacaoTitulo servicoTitulo, Contexto contexto)
         {
             _servicoTitulo = servicoTitulo;
+            _contexto = contexto;
         }
 
         [Produces("application/json")]
@@ -35,7 +39,11 @@ namespace Api.Controllers
                 Nascimento = a.Nascimento
             }).ToList();
 
-            var novoTitulo = Titulo.Novo(titulo.DescricaoDoTitulo, autores);
+            var autoresSalvaNoTitulo = await _contexto.Autores
+                .Where(a => autores.Select(au => au.Id).Contains(a.Id))
+                .ToListAsync();
+
+            var novoTitulo = Titulo.Novo(titulo.DescricaoDoTitulo, autoresSalvaNoTitulo);
 
             var resultado = await _servicoTitulo.Adicionar(novoTitulo);
 
