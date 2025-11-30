@@ -1,4 +1,5 @@
 ﻿using Api.Dto.Entrada;
+using Api.Dto.Saida;
 using Aplicacao.Interfaces;
 using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
@@ -79,7 +80,13 @@ namespace Api.Controllers
         {
             var resultado = await _servicoPessoa.BuscarPorId(id);
 
-            return Ok(resultado);
+            return Ok(new PessoaSaidaDTO
+            {
+                Id = resultado.Id,
+                Nome = resultado.Nome,
+                Sobrenome = resultado.Sobrenome,
+                Nascimento = resultado.Nascimento
+            });
         }
 
         [Produces("application/json")]
@@ -88,7 +95,13 @@ namespace Api.Controllers
         {
             var resultado = await _servicoPessoa.Listar();
 
-            return Ok(resultado);
+            return Ok(resultado.Select(p => new PessoaSaidaDTO
+            {
+                Id = p.Id,
+                Nome = p.Nome,
+                Sobrenome = p.Sobrenome,
+                Nascimento = p.Nascimento
+            }));
         }
     }
 }
