@@ -20,9 +20,20 @@ namespace Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Adicionar([FromBody] AdicionaAtualizaPessoaDTO pessoa)
         {
-            var novoPessoa = Pessoa.Novo(pessoa.Nome, pessoa.Sobrenome, pessoa.Nascimento);
+            if (pessoa == null ||
+                string.IsNullOrWhiteSpace(pessoa.Nome) ||
+                string.IsNullOrWhiteSpace(pessoa.Sobrenome) ||
+                pessoa.Nascimento == default)
+            {
+                return BadRequest("Dados de entrada inválidos.");
+            }
 
-            var resultado = await _servicoPessoa.Adicionar(novoPessoa);
+            var novaPessoa = Pessoa.Novo(
+                pessoa.Nome,
+                pessoa.Sobrenome,
+                pessoa.Nascimento);
+
+            var resultado = await _servicoPessoa.Adicionar(novaPessoa);
 
             return Created(string.Empty, resultado);
         }
@@ -32,6 +43,14 @@ namespace Api.Controllers
         public async Task<IActionResult> Atualizar([FromRoute] int id,
             [FromBody] AdicionaAtualizaPessoaDTO pessoa)
         {
+            if (pessoa == null ||
+                string.IsNullOrWhiteSpace(pessoa.Nome) ||
+                string.IsNullOrWhiteSpace(pessoa.Sobrenome) ||
+                pessoa.Nascimento == default)
+            {
+                return BadRequest("Dados de entrada inválidos.");
+            }
+
             var pessoaPraAtualizar = await _servicoPessoa.BuscarPorId(id);
 
             pessoaPraAtualizar.Nome = pessoa.Nome;
@@ -49,9 +68,9 @@ namespace Api.Controllers
         {
             var pessoaPraExcluir = await _servicoPessoa.BuscarPorId(id);
 
-            var resultado = await _servicoPessoa.Excluir(pessoaPraExcluir);
+            await _servicoPessoa.Excluir(pessoaPraExcluir);
 
-            return Ok(resultado);
+            return NoContent();
         }
 
         [Produces("application/json")]
