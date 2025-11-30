@@ -13,7 +13,7 @@ namespace InfraEstrutura.Context
 		{
 			if (!optionsBuilder.IsConfigured)
 			{
-				optionsBuilder.UseSqlServer(PegarStringConexao());
+				//optionsBuilder.UseSqlServer(PegarStringConexao());
 
 				base.OnConfiguring(optionsBuilder);
 			}

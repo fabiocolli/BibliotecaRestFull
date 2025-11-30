@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace InfraEstrutura.Context
 {
@@ -7,13 +8,15 @@ namespace InfraEstrutura.Context
 	{
 		public Contexto CreateDbContext(string[] args)
 		{
-			var opcoesDoContrutor = new DbContextOptionsBuilder<Contexto>();
+            var config = new ConfigurationBuilder()
+                            .SetBasePath(Directory.GetCurrentDirectory())
+                            .AddJsonFile("appsettings.json")
+                            .Build();
 
-			opcoesDoContrutor.UseSqlServer("Data Source=fc-p\\local;Initial Catalog=BibliotecaRestFull;" +
-				"Persist Security Info=True;User " +
-				"ID=sa;Password=qM1t$up|iC74;TrustServerCertificate=True");
+            var optionsBuilder = new DbContextOptionsBuilder<Contexto>();
+            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
 
-			return new Contexto(opcoesDoContrutor.Options);
-		}
+            return new Contexto(optionsBuilder.Options);
+        }
 	}
 }
