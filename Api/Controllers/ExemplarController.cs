@@ -25,7 +25,7 @@ namespace Api.Controllers
                 exemplar.TituloId <= 0 ||
                 exemplar.DataDeAquisicao == default)
             {
-                return BadRequest("Dados de entrada inv�lidos.");
+                return BadRequest("Dados de entrada inválidos.");
             }
 
             var novoExemplar = new Exemplar
@@ -50,7 +50,7 @@ namespace Api.Controllers
                 exemplar.TituloId <= 0 ||
                 exemplar.DataDeAquisicao == default)
             {
-                return BadRequest("Dados de entrada inv�lidos.");
+                return BadRequest("Dados de entrada inválidos.");
             }
 
             var exemplarPraAtualizar = await _servicoExemplar.BuscarPorId(id);
