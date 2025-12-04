@@ -1,14 +1,13 @@
-﻿using Dominio.Enumerados;
+using Dominio.Enumerados;
 
-namespace Dominio.Entidades
+namespace Api.Dto.Saida
 {
-    public class Exemplar
+    public class ExemplarSaidaDTO
     {
         public int Id { get; set; }
         public DateTime DataDeAquisicao { get; set; }
         public int TituloId { get; set; }
+        public string TituloDescricao { get; set; }
         public StatusExemplar StatusExemplar { get; set; }
-        public int NumeroDoExemplar { get; set; }
-        public Titulo Titulo { get; set; }
     }
 }

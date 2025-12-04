@@ -89,11 +89,18 @@ namespace Api.Controllers
         {
             var resultado = await _servicoTitulo.BuscarPorId(id);
 
+            var autores = resultado.Autores.Select(a => new AutorSimplesDTO
+            {
+                Id = a.Id,
+                Nome = a.Nome,
+                Nascimento = a.Nascimento
+            }).ToList();
+
             return Ok(new TituloSaidaDTO
             {
                 Id = resultado.Id,
                 DescricaoDoTitulo = resultado.DescricaoDoTitulo,
-                Autores = resultado.Autores.ToList()
+                Autores = autores
             });
         }
 
@@ -107,7 +114,12 @@ namespace Api.Controllers
             {
                 Id = t.Id,
                 DescricaoDoTitulo = t.DescricaoDoTitulo,
-                Autores = t.Autores.ToList()
+                Autores = t.Autores.Select(at => new AutorSimplesDTO
+                {
+                    Id = at.Id,
+                    Nome = at.Nome,
+                    Nascimento = at.Nascimento
+                }).ToList()
             }));
         }
     }

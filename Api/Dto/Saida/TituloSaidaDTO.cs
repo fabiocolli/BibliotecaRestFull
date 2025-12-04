@@ -4,6 +4,6 @@ namespace Api.Dto.Saida
     {
         public int Id { get; set; }
         public string DescricaoDoTitulo { get; set; }
-        public List<AutorSimplesDTO> Autores { get; set; } = new List<AutorSimplesDTO>();
+        public IList<AutorSimplesDTO> Autores { get; set; } = new List<AutorSimplesDTO>();
     }
 }
