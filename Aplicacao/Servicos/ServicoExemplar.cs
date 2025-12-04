@@ -25,7 +25,7 @@ namespace Aplicacao.Servicos
 
         public async Task<Exemplar> BuscarPorId(int id)
         {
-            return await _repositorioExemplar.BuscarPorId(id);
+            return await _repositorioExemplar.BuscarPorIdComTitutlo(id);
         }
 
         public async Task<Exemplar> Excluir(Exemplar objeto)
@@ -35,7 +35,7 @@ namespace Aplicacao.Servicos
 
         public async Task<IList<Exemplar>> Listar()
         {
-            return await _repositorioExemplar.Listar();
+            return await _repositorioExemplar.ListarTodos();
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Api.Dto.Entrada
+﻿namespace Api.Dto.Entrada
 {
     public class AdicionaAtualizaPessoaDTO
     {

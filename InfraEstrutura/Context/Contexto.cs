@@ -5,27 +5,27 @@ namespace InfraEstrutura.Context
 {
     public class Contexto : DbContext
     {
-		public Contexto(DbContextOptions<Contexto> options) : base(options)
-		{
+        public Contexto(DbContextOptions<Contexto> options) : base(options)
+        {
 
-		}
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			if (!optionsBuilder.IsConfigured)
-			{
-				//optionsBuilder.UseSqlServer(PegarStringConexao());
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                //optionsBuilder.UseSqlServer(PegarStringConexao());
 
-				base.OnConfiguring(optionsBuilder);
-			}
-		}
-		public string PegarStringConexao()
-		{
-			return "Data Source=fc-p\\local;Initial Catalog=BibliotecaRestFull;" +
-				"Persist Security Info=True;User " +
-				"ID=sa;Password=qM1t$up|iC74;TrustServerCertificate=True";
-		}
+                base.OnConfiguring(optionsBuilder);
+            }
+        }
+        public string PegarStringConexao()
+        {
+            return "Data Source=fc-p\\local;Initial Catalog=BibliotecaRestFull;" +
+                "Persist Security Info=True;User " +
+                "ID=sa;Password=qM1t$up|iC74;TrustServerCertificate=True";
+        }
 
-		public DbSet<Pessoa> Pessoas { get; set; }
+        public DbSet<Pessoa> Pessoas { get; set; }
         public DbSet<Titulo> Titulos { get; set; }
         public DbSet<Exemplar> Exemplares { get; set; }
         public DbSet<Autor> Autores { get; set; }

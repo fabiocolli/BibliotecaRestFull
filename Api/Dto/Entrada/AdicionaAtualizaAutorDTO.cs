@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace Api.Dto.Entrada
 {
     public class AdicionaAtualizaAutorDTO

@@ -1,7 +1,6 @@
 ﻿using Aplicacao.Interfaces;
 using Dominio.Entidades;
 using Dominio.Interfaces;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Aplicacao.Servicos
 {

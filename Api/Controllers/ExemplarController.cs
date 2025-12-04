@@ -25,14 +25,15 @@ namespace Api.Controllers
                 exemplar.TituloId <= 0 ||
                 exemplar.DataDeAquisicao == default)
             {
-                return BadRequest("Dados de entrada inválidos.");
+                return BadRequest("Dados de entrada invï¿½lidos.");
             }
 
             var novoExemplar = new Exemplar
             {
                 DataDeAquisicao = exemplar.DataDeAquisicao,
                 TituloId = exemplar.TituloId,
-                StatusExemplar = exemplar.StatusExemplar
+                StatusExemplar = exemplar.StatusExemplar,
+                NumeroDoExemplar = exemplar.NumeroDoExemplar
             };
 
             var resultado = await _servicoExemplar.Adicionar(novoExemplar);
@@ -49,7 +50,7 @@ namespace Api.Controllers
                 exemplar.TituloId <= 0 ||
                 exemplar.DataDeAquisicao == default)
             {
-                return BadRequest("Dados de entrada inválidos.");
+                return BadRequest("Dados de entrada invï¿½lidos.");
             }
 
             var exemplarPraAtualizar = await _servicoExemplar.BuscarPorId(id);
@@ -57,6 +58,7 @@ namespace Api.Controllers
             exemplarPraAtualizar.DataDeAquisicao = exemplar.DataDeAquisicao;
             exemplarPraAtualizar.TituloId = exemplar.TituloId;
             exemplarPraAtualizar.StatusExemplar = exemplar.StatusExemplar;
+            exemplarPraAtualizar.NumeroDoExemplar = exemplar.NumeroDoExemplar;
 
             await _servicoExemplar.Atualizar(exemplarPraAtualizar);
 
@@ -85,7 +87,8 @@ namespace Api.Controllers
                 Id = resultado.Id,
                 DataDeAquisicao = resultado.DataDeAquisicao,
                 TituloId = resultado.TituloId,
-                StatusExemplar = resultado.StatusExemplar
+                StatusExemplar = resultado.StatusExemplar,
+                TituloDescricao = resultado.Titulo.DescricaoDoTitulo
             });
         }
 
