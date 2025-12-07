@@ -10,5 +10,6 @@ namespace Dominio.Entidades
         public StatusExemplar StatusExemplar { get; set; }
         public int NumeroDoExemplar { get; set; }
         public Titulo Titulo { get; set; }
+        public ICollection<Emprestimo> Emprestimos { get; set; } = new List<Emprestimo>();
     }
 }

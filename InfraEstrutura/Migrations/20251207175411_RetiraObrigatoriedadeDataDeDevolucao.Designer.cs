@@ -4,6 +4,7 @@ using InfraEstrutura.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InfraEstrutura.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20251207175411_RetiraObrigatoriedadeDataDeDevolucao")]
+    partial class RetiraObrigatoriedadeDataDeDevolucao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,6 +95,9 @@ namespace InfraEstrutura.Migrations
                     b.Property<DateTime>("DataDeAquisicao")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("EmprestimoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("NumeroDoExemplar")
                         .HasColumnType("int");
 
@@ -102,6 +108,8 @@ namespace InfraEstrutura.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmprestimoId");
 
                     b.HasIndex("TituloId");
 
@@ -149,21 +157,6 @@ namespace InfraEstrutura.Migrations
                     b.ToTable("Titulos");
                 });
 
-            modelBuilder.Entity("EmprestimoExemplar", b =>
-                {
-                    b.Property<int>("EmprestimosId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ExemplaresId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmprestimosId", "ExemplaresId");
-
-                    b.HasIndex("ExemplaresId");
-
-                    b.ToTable("EmprestimoExemplar");
-                });
-
             modelBuilder.Entity("AutorTitulo", b =>
                 {
                     b.HasOne("Dominio.Entidades.Autor", null)
@@ -192,6 +185,11 @@ namespace InfraEstrutura.Migrations
 
             modelBuilder.Entity("Dominio.Entidades.Exemplar", b =>
                 {
+                    b.HasOne("Dominio.Entidades.Emprestimo", null)
+                        .WithMany("Exemplares")
+                        .HasForeignKey("EmprestimoId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Dominio.Entidades.Titulo", "Titulo")
                         .WithMany()
                         .HasForeignKey("TituloId")
@@ -201,19 +199,9 @@ namespace InfraEstrutura.Migrations
                     b.Navigation("Titulo");
                 });
 
-            modelBuilder.Entity("EmprestimoExemplar", b =>
+            modelBuilder.Entity("Dominio.Entidades.Emprestimo", b =>
                 {
-                    b.HasOne("Dominio.Entidades.Emprestimo", null)
-                        .WithMany()
-                        .HasForeignKey("EmprestimosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Dominio.Entidades.Exemplar", null)
-                        .WithMany()
-                        .HasForeignKey("ExemplaresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Exemplares");
                 });
 
             modelBuilder.Entity("Dominio.Entidades.Pessoa", b =>

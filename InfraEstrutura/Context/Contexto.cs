@@ -45,9 +45,12 @@ namespace InfraEstrutura.Context
                 .HasKey(e => e.Id);
 
             modelBuilder.Entity<Emprestimo>()
+                .Property(e => e.DataDeDevolucao)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Emprestimo>()
                 .HasMany(e => e.Exemplares)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Restrict);
+                .WithMany(ex => ex.Emprestimos);
 
             modelBuilder.Entity<Titulo>()
                 .HasKey(t => t.Id);

@@ -103,5 +103,28 @@ namespace Api.Controllers
                 Nascimento = p.Nascimento
             }));
         }
+
+        [Produces("application/json")]
+        [HttpGet("{idPessoa:int}/emprestimos")]
+        public async Task<IActionResult> ObterEmprestimosPelaPessoa([FromRoute] int idPessoa)
+        {
+            var resultado = await _servicoPessoa.ObterEmprestimosPelaPessoa(idPessoa);
+
+            return Ok(resultado.Select(e => new EmprestimoSaidaDTO
+            {
+                Id = e.Id,
+                DataDoEmprestimo = e.DataDoEmprestimo,
+                DataDeDevolucao = e.DataDeDevolucao,
+                Exemplares = e.Exemplares.Select(ex => new ExemplarSaidaDTO
+                {
+                    Id = ex.Id,
+                    DataDeAquisicao = ex.DataDeAquisicao,
+                    TituloId = ex.TituloId,
+                    StatusExemplar = ex.StatusExemplar,
+                    TituloDescricao = ex.Titulo.DescricaoDoTitulo
+                }).ToList()
+            }));
+        }
+
     }
 }

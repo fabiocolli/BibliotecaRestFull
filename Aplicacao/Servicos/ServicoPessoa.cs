@@ -37,5 +37,10 @@ namespace Aplicacao.Servicos
         {
             return await _repositorioPessoa.Listar();
         }
+
+        public async Task<IList<Emprestimo>> ObterEmprestimosPelaPessoa(int idPessoa)
+        {
+            return await _repositorioPessoa.ObterEmprestimosPelaPessoa(idPessoa);
+        }
     }
 }
