@@ -47,7 +47,11 @@ namespace Api.Controllers
 
             var resultado = await _servicoTitulo.Adicionar(novoTitulo);
 
-            return Created(string.Empty, resultado);
+            return Created(string.Empty, new
+            {
+                resultado.Id,
+                resultado.DescricaoDoTitulo
+            });
         }
 
         [Produces("application/json")]

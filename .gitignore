@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /InfraEstrutura/appsettings.Development.json
 /InfraEstrutura/appsettings.json
 /ResetaNumeroExemplar.sql
+/GerarExemplares.sql
