@@ -37,5 +37,10 @@ namespace Aplicacao.Servicos
         {
             return await _repositorioEmprestimo.Listar();
         }
+
+        public async Task<IList<Emprestimo>> ObterEmprestimosPorPeriodo(DateTime dataInicio, DateTime dataFim)
+        {
+            return await _repositorioEmprestimo.ObterEmprestimosPorPeriodo(dataInicio, dataFim);
+        }
     }
 }
