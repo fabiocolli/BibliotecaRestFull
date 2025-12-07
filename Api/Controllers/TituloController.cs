@@ -114,17 +114,25 @@ namespace Api.Controllers
         {
             var resultado = await _servicoTitulo.Listar();
 
-            return Ok(resultado.Select(t => new TituloSaidaDTO
+            return Ok(resultado.Select(t =>
             {
-                Id = t.Id,
-                DescricaoDoTitulo = t.DescricaoDoTitulo,
-                Autores = t.Autores.Select(at => new AutorSimplesDTO
+                var autores = _contexto.Autores
+                    .Include(a => a.Titulos)
+                    .Where(a => a.Titulos.Contains(t))
+                    .ToList();
+
+                return new TituloSaidaDTO
                 {
-                    Id = at.Id,
-                    Nome = at.Nome,
-                    Nascimento = at.Nascimento
-                }).ToList()
-            }));
+                    Id = t.Id,
+                    DescricaoDoTitulo = t.DescricaoDoTitulo,
+                    Autores = autores.Select(at => new AutorSimplesDTO
+                    {
+                        Id = at.Id,
+                        Nome = at.Nome,
+                        Nascimento = at.Nascimento
+                    }).ToList()
+                };
+            }).ToList());
         }
 
         [Produces("application/json")]
