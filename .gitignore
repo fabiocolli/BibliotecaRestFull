@@ -365,3 +365,4 @@ FodyWeavers.xsd
 /Api/appsettings.json
 /InfraEstrutura/appsettings.Development.json
 /InfraEstrutura/appsettings.json
+/ResetaNumeroExemplar.sql
