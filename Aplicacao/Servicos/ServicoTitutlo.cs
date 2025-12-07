@@ -37,5 +37,10 @@ namespace Aplicacao.Servicos
         {
             return await _repositorioTitulo.Listar();
         }
+
+        public async Task<IList<Exemplar>> ObterExemplaresPeloTitulo(int idTitulo)
+        {
+            return await _repositorioTitulo.ObterExemplaresPeloTitulo(idTitulo);
+        }
     }
 }

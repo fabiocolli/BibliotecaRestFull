@@ -1,6 +1,7 @@
 using Api.Dto.Entrada;
 using Api.Dto.Saida;
 using Aplicacao.Interfaces;
+using Aplicacao.Servicos;
 using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,6 @@ namespace Api.Controllers
     public class AutorController : ControllerBase
     {
         private readonly IAplicacaoAutor _servicoAutor;
-
         public AutorController(IAplicacaoAutor servicoAutor)
         {
             _servicoAutor = servicoAutor;
@@ -97,5 +97,19 @@ namespace Api.Controllers
                 Nascimento = a.Nascimento
             }));
         }
+
+        [Produces("application/json")]
+        [HttpGet("autores/{idAutor:int}/titulos")]
+        public async Task<IActionResult> ObterTitulosPeloAutor([FromRoute] int idAutor)
+        {
+            var resultado = await _servicoAutor.ObterTitulosPeloAutor(idAutor);
+
+            return Ok(resultado.Select(t => new TituloSaidaSemListaAutorDTO
+            {
+                Id = t.Id,
+                DescricaoDoTitulo = t.DescricaoDoTitulo
+            }));
+        }
+
     }
 }

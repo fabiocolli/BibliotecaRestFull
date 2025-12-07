@@ -122,5 +122,20 @@ namespace Api.Controllers
                 }).ToList()
             }));
         }
+
+        [Produces("application/json")]
+        [HttpGet("{idTitulo:int}/exemplares")]
+        public async Task<IActionResult> ObterExemplaresPeloTitulo([FromRoute] int idTitulo)
+        {
+            var resultado = await _servicoTitulo.ObterExemplaresPeloTitulo(idTitulo);
+
+            return Ok(resultado.Select(e => new ExemplarSaidaDTO
+            {
+                Id = e.Id,
+                TituloId = e.TituloId,
+                TituloDescricao = e.Titulo.DescricaoDoTitulo,
+            }));
+        }
+
     }
 }

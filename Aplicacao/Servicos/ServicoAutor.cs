@@ -37,5 +37,10 @@ namespace Aplicacao.Servicos
         {
             return await _repositorioAutor.Listar();
         }
+        public async Task<IList<Titulo>> ObterTitulosPeloAutor(int idAutor)
+        {
+            return await _repositorioAutor.ObterTitulosPeloAutor(idAutor);
+        }
+
     }
 }
