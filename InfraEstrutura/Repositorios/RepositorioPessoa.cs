@@ -14,7 +14,8 @@ namespace InfraEstrutura.Repositorios
         public async Task<IList<Emprestimo>> ObterEmprestimosPelaPessoa(int idPessoa)
         {
             return await _contexto.Emprestimos
-                .Include(e => e.Pessoa)
+                .Include(e => e.Exemplares)
+                .ThenInclude(e => e.Titulo)
                 .Where(e => e.Pessoa.Id == idPessoa)
                 .ToListAsync();
         }

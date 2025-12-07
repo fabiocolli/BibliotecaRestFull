@@ -1,5 +1,3 @@
-using Dominio.Enumerados;
-
 namespace Api.Dto.Saida
 {
     public class ExemplarSaidaDTO
@@ -8,6 +6,6 @@ namespace Api.Dto.Saida
         public DateTime DataDeAquisicao { get; set; }
         public int TituloId { get; set; }
         public string TituloDescricao { get; set; }
-        public StatusExemplar StatusExemplar { get; set; }
+        public string StatusExemplar { get; set; }
     }
 }

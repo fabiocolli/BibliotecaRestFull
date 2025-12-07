@@ -87,7 +87,7 @@ namespace Api.Controllers
                 Id = resultado.Id,
                 DataDeAquisicao = resultado.DataDeAquisicao,
                 TituloId = resultado.TituloId,
-                StatusExemplar = resultado.StatusExemplar,
+                StatusExemplar = resultado.StatusExemplar.ToString(),
                 TituloDescricao = resultado.Titulo.DescricaoDoTitulo
             });
         }
@@ -103,7 +103,7 @@ namespace Api.Controllers
                 Id = e.Id,
                 DataDeAquisicao = e.DataDeAquisicao,
                 TituloId = e.TituloId,
-                StatusExemplar = e.StatusExemplar,
+                StatusExemplar = e.StatusExemplar.ToString(),
                 TituloDescricao = e.Titulo.DescricaoDoTitulo
             }));
         }

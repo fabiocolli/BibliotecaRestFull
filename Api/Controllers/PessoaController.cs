@@ -120,7 +120,7 @@ namespace Api.Controllers
                     Id = ex.Id,
                     DataDeAquisicao = ex.DataDeAquisicao,
                     TituloId = ex.TituloId,
-                    StatusExemplar = ex.StatusExemplar,
+                    StatusExemplar = ex.StatusExemplar.ToString(),
                     TituloDescricao = ex.Titulo.DescricaoDoTitulo
                 }).ToList()
             }));
