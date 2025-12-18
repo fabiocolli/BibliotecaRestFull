@@ -42,5 +42,10 @@ namespace Aplicacao.Servicos
         {
             return await _repositorioTitulo.ObterExemplaresPeloTitulo(idTitulo);
         }
+
+        public async Task<IList<Exemplar>> ObterTituloPorNomeAproximado(string nome)
+        {
+            return await _repositorioTitulo.ObterTituloPorNomeAproximado(nome);
+        }
     }
 }

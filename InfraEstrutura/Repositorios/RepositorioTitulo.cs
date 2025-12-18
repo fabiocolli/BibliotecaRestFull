@@ -19,5 +19,15 @@ namespace InfraEstrutura.Repositorios
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<IList<Exemplar>> ObterTituloPorNomeAproximado(string nome)
+        {
+            return await _contexto.Exemplares
+                .Include(e => e.Titulo)
+                .ThenInclude(e => e.Autores)
+                .Where(e => e.Titulo.DescricaoDoTitulo.Contains(nome))
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }

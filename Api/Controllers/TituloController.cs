@@ -149,5 +149,32 @@ namespace Api.Controllers
             }));
         }
 
+        [Produces("application/json")]
+        [HttpGet("titulos")]
+        public async Task<IActionResult> ObterTituloPorNomeAproximado([FromQuery] string nome)
+        {
+            var resultado = await _servicoTitulo.ObterTituloPorNomeAproximado(nome);
+
+            return Ok(resultado
+                .GroupBy(e => e.Titulo.Id)
+                .Select(grupo => new TituloSaidaComExemplaresDTO
+                {
+                    Id = grupo.Key,
+                    DescricaoDoTitulo = grupo.First().Titulo.DescricaoDoTitulo,
+                    Autores = grupo.First().Titulo.Autores.Select(a => new AutorSimplesDTO
+                    {
+                        Id = a.Id,
+                        Nome = a.Nome,
+                        Nascimento = a.Nascimento
+                    }).ToList(),
+                    Exemplares = grupo.Select(e => new ExemplarSemTituloSaidaDTO
+                    {
+                        Id = e.Id,
+                        DataDeAquisicao = e.DataDeAquisicao,
+                        StatusExemplar = e.StatusExemplar.ToString(),
+                    }).ToList()
+                })
+                .ToList());
+        }
     }
 }
