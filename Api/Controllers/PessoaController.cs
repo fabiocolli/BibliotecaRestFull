@@ -115,6 +115,7 @@ namespace Api.Controllers
                 Id = e.Id,
                 DataDoEmprestimo = e.DataDoEmprestimo,
                 DataDeDevolucao = e.DataDeDevolucao,
+                SituacaoDoEmprestimo = e.DataDeDevolucao.HasValue ? "Devolvido" : "Em aberto",
                 Exemplares = e.Exemplares.Select(ex => new ExemplarSaidaDTO
                 {
                     Id = ex.Id,

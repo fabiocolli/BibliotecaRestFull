@@ -146,6 +146,7 @@ namespace Api.Controllers
                 Id = e.Id,
                 TituloId = e.TituloId,
                 TituloDescricao = e.Titulo.DescricaoDoTitulo,
+                StatusExemplar = e.StatusExemplar.ToString(),
             }));
         }
 
