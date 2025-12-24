@@ -5,5 +5,7 @@ namespace Aplicacao.Interfaces
     public interface IAplicacaoEmprestimo : IAplicacaoGenerica<Emprestimo>
     {
         Task<IList<Emprestimo>> ObterEmprestimosPorPeriodo(DateTime dataInicio, DateTime dataFim);
+        Task<IList<Emprestimo>> ObterEmprestimosEmAbertoPorPeriodo(DateTime dataInicio, DateTime dataFim);
+
     }
 }

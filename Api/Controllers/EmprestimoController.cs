@@ -37,5 +37,29 @@ namespace Api.Controllers
                 }).ToList()
             }));
         }
+
+        [Produces("application/json")]
+        [HttpGet("abertos")]
+        public async Task<IActionResult> ObterEmprestimosEmAbertoPorPeriodo([FromQuery] DateTime dataInicio,
+           [FromQuery] DateTime dataFim)
+        {
+            var resultado = await _servicoEmprestimo.ObterEmprestimosEmAbertoPorPeriodo(dataInicio, dataFim);
+
+            return Ok(resultado.Select(e => new EmprestimoSaidaPorPeriodoDTO
+            {
+                Id = e.Id,
+                DataDoEmprestimo = e.DataDoEmprestimo,
+                DataDeDevolucao = e.DataDeDevolucao,
+                NomeDaPessoa = $"{e.Pessoa.Nome} {e.Pessoa.Sobrenome}",
+                Exemplares = e.Exemplares.Select(ex => new ExemplarSaidaDTO
+                {
+                    Id = ex.Id,
+                    DataDeAquisicao = ex.DataDeAquisicao,
+                    TituloId = ex.TituloId,
+                    StatusExemplar = ex.StatusExemplar.ToString(),
+                    TituloDescricao = ex.Titulo.DescricaoDoTitulo
+                }).ToList()
+            }));
+        }
     }
 }

@@ -11,6 +11,18 @@ namespace InfraEstrutura.Repositorios
         {
         }
 
+        public async Task<IList<Emprestimo>> ObterEmprestimosEmAbertoPorPeriodo(DateTime dataInicio, DateTime dataFim)
+        {
+            return await _contexto.Emprestimos
+                .Include(e => e.Pessoa)
+                .Include(e => e.Exemplares)
+                .ThenInclude(e => e.Titulo)
+                .Where(e => e.DataDoEmprestimo >= dataInicio &&
+                        e.DataDoEmprestimo <= dataFim &&
+                        e.DataDeDevolucao == null)
+                .ToListAsync();
+        }
+
         public async Task<IList<Emprestimo>> ObterEmprestimosPorPeriodo(DateTime dataInicio, DateTime dataFim)
         {
             return await _contexto.Emprestimos
